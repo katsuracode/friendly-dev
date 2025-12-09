@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import Pagination from "~/components/Pagination";
 import ProjectCard from "~/components/ProjectCard";
@@ -15,7 +16,7 @@ export const loader = async ({ request }: Route.LoaderArgs): Promise<{ projects:
   try {
     const apiUrl =
       process.env.NODE_ENV === "development"
-        ? "http://localhost:8300/projects"
+        ? `${import.meta.env.VITE_API_URL}/projects`
         : "https://friendly-4l2uojve2-katsuracodes-projects.vercel.app/projects";
 
     const res = await fetch(apiUrl);
@@ -73,11 +74,15 @@ const ProjectsPage = ({ loaderData }: Route.ComponentProps) => {
           </button>
         ))}
       </div>
-      <div className="grid gap-6 sm:grid-cols-2">
-        {currentProjects.map((project: Project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
-      </div>
+      <AnimatePresence mode="wait">
+        <motion.div layout className="grid gap-6 sm:grid-cols-2">
+          {currentProjects.map((project: Project) => (
+            <motion.div key={project.id} layout>
+              <ProjectCard project={project} />
+            </motion.div>
+          ))}
+        </motion.div>
+      </AnimatePresence>
       <Pagination
         totalPages={totalPages}
         currentPage={currentPage}

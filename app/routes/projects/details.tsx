@@ -7,8 +7,8 @@ export const clientLoader = async ({ request, params }: Route.LoaderArgs): Promi
   try {
     const apiUrl =
       process.env.NODE_ENV === "development"
-        ? `http://localhost:8300/projects/${params.id}`
-        : `https://https://friendly-4l2uojve2-katsuracodes-projects.vercel.app/projects/${params.id}`;
+        ? `${import.meta.env.VITE_API_URL}/projects/${params.id}`
+        : `https://friendly-4l2uojve2-katsuracodes-projects.vercel.app/projects/${params.id}`;
 
     const res = await fetch(apiUrl);
     if (!res.ok) throw new Error("Failed to fetch data from the server.");
