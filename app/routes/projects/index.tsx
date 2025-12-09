@@ -4,6 +4,13 @@ import ProjectCard from "~/components/ProjectCard";
 import type { Project } from "../../type";
 import type { Route } from "./+types";
 
+export const meta = ({}: Route.MetaArgs) => {
+  return [
+    { title: "The Friendly Dev | Projects" },
+    { name: "description", content: "My website project portfolio" },
+  ];
+};
+
 export const loader = async ({ request }: Route.LoaderArgs): Promise<{ projects: Project[] }> => {
   try {
     const apiUrl =
