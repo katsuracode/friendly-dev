@@ -7,7 +7,6 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths(), devtoolsJson(), vercel()],
-  /*
   server: {
     proxy: {
       "/api": {
@@ -16,5 +15,5 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
-  },*/
+  },
 });

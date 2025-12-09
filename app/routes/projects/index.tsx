@@ -3,7 +3,7 @@ import type { Route } from "./+types";
 
 export const loader = async ({ request }: Route.LoaderArgs): Promise<{ projects: Project[] }> => {
   try {
-    const res = await fetch("http://localhost:8300/projects");
+    const res = await fetchApi("/api/projects");
     if (!res.ok) throw new Error("Failed to fetch data from the server.");
 
     const data = await res.json();
@@ -14,6 +14,13 @@ export const loader = async ({ request }: Route.LoaderArgs): Promise<{ projects:
     console.error("Error fetching projects:", error);
     return { projects: [] };
   }
+};
+
+const fetchApi = async (path: string) => {
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || "";
+  const url = baseUrl ? `${baseUrl}${path.replace("/api", "")}` : path;
+
+  return fetch(url);
 };
 
 const ProjectsPage = ({ loaderData }: Route.ComponentProps) => {
