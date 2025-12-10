@@ -1,3 +1,4 @@
+import AboutPreview from "~/components/AboutPreview";
 import FeaturedProject from "~/components/FeaturedProject";
 import type { Project } from "~/type";
 import type { Route } from "./+types";
@@ -32,7 +33,12 @@ export const loader = async ({ request }: Route.LoaderArgs): Promise<{ projects:
 const HomePage = ({ loaderData }: Route.ComponentProps) => {
   const { projects } = loaderData as { projects: Project[] };
 
-  return <FeaturedProject projects={projects} count={2} />;
+  return (
+    <>
+      <FeaturedProject projects={projects} count={2} />
+      <AboutPreview />
+    </>
+  );
 };
 
 export default HomePage;
