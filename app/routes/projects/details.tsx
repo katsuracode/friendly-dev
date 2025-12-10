@@ -8,7 +8,7 @@ export const loader = async ({ request, params }: Route.LoaderArgs): Promise<Pro
     const apiUrl =
       process.env.NODE_ENV === "development"
         ? `${import.meta.env.VITE_API_URL}/projects/${params.id}`
-        : `https://friendly-4l2uojve2-katsuracodes-projects.vercel.app/projects/${params.id}`;
+        : `https://friendly-dev-one.vercel.app/projects/${params.id}`;
 
     const res = await fetch(apiUrl);
     if (!res.ok) throw new Error("Failed to fetch data from the server.");
