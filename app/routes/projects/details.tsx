@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import type { Project } from "~/type";
 import type { Route } from "./+types";
 
-export const clientLoader = async ({ request, params }: Route.LoaderArgs): Promise<Project> => {
+export const loader = async ({ request, params }: Route.LoaderArgs): Promise<Project> => {
   try {
     const apiUrl =
       process.env.NODE_ENV === "development"
