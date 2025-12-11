@@ -8,3 +8,10 @@ export type Project = {
   url: string;
   featured: boolean;
 }
+export type Post = {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: string;
+}

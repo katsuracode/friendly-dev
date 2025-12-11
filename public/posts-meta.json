@@ -33,5 +33,40 @@
     "title": "Deploying Full-Stack Apps: A Simple Guide",
     "excerpt": "Everything you need to know to deploy your frontend and backend together.",
     "date": "2025-01-28T00:00:00"
+  },
+  {
+    "id": "6",
+    "slug": "go-vs-python-backend",
+    "title": "Choosing Between Go and Python for Backend Development",
+    "excerpt": "A detailed comparison of performance, ecosystem, and use cases for modern API servers.",
+    "date": "2025-01-20T00:00:00"
+  },
+  {
+    "id": "7",
+    "slug": "serverless-architecture-basics",
+    "title": "Getting Started with Serverless Architecture",
+    "excerpt": "Learn how to build scalable applications using AWS Lambda, Azure Functions, or Google Cloud Functions.",
+    "date": "2025-01-15T00:00:00"
+  },
+  {
+    "id": "8",
+    "slug": "react-native-performance-tips",
+    "title": "Performance Optimization Tips for React Native Apps",
+    "excerpt": "Practical techniques to improve rendering speed and reduce bundle size in mobile applications.",
+    "date": "2025-01-05T00:00:00"
+  },
+  {
+    "id": "9",
+    "slug": "database-indexing-101",
+    "title": "Database Indexing: How It Works and When to Use It",
+    "excerpt": "Understand the fundamentals of database indexes and how they dramatically improve query performance.",
+    "date": "2024-12-20T00:00:00"
+  },
+  {
+    "id": "10",
+    "slug": "microservices-communication-patterns",
+    "title": "Communication Patterns in Microservices Architecture",
+    "excerpt": "Explore synchronous vs asynchronous communication, message queues, and event-driven design.",
+    "date": "2024-12-10T00:00:00"
   }
 ]

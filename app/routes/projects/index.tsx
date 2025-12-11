@@ -83,11 +83,13 @@ const ProjectsPage = ({ loaderData }: Route.ComponentProps) => {
           ))}
         </motion.div>
       </AnimatePresence>
-      <Pagination
-        totalPages={totalPages}
-        currentPage={currentPage}
-        onPageChange={(pageNumber) => setCurrentPage(pageNumber)}
-      />
+      {totalPages > 1 && (
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={(pageNumber) => setCurrentPage(pageNumber)}
+        />
+      )}
     </>
   );
 };
