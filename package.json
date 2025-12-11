@@ -14,6 +14,9 @@
     "json:server": "bun json-server data/db.json --port 8300",
     "json:bg": "pm2 start bun --name my-json -- run json:server",
     "json:stop": "pm2 stop my-json",
+    "both:bg": "pm2 start 'bun run react-router' --name my-vercel && pm2 start bun --name my-json -- run json:server",
+    "both:stop": "pm2 stop my-vercel && pm2 stop my-json",
+    "biome": "biome check && biome format",
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
