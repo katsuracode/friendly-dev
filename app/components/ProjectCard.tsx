@@ -11,7 +11,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
         key={project.id}
         className="bg-gray-800 border border-gray-700 rounded-lg overflow-hidden shadow-sm transition hover:shadow-md"
       >
-        <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
+        <img src={project.imageUrl} alt={project.title} className="w-full h-48 object-cover" />
         <div className="p-5">
           <h3 className="text-3xl font-semibold text-blue-400 mb-1">{project.title}</h3>
           <p className="text-sm text-gray-300 mb-2">{project.description}</p>

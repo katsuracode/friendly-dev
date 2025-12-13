@@ -16,16 +16,29 @@ export const loader = async ({ request }: Route.LoaderArgs): Promise<{ projects:
   try {
     const apiUrl =
       process.env.NODE_ENV === "development"
-        ? `${import.meta.env.VITE_API_URL}/projects`
+        ? `${import.meta.env.VITE_API_URL}/projects?populate=*`
         : "https://friendly-dev-one.vercel.app/projects";
 
     const res = await fetch(apiUrl);
     if (!res.ok) throw new Error("Failed to fetch data from the server.");
 
-    const data = await res.json();
-    console.log(data);
+    const json = await res.json();
 
-    return { projects: data };
+    const projects = json.data.map((item: any) => ({
+      id: item.id,
+      documentId: item.documentId,
+      title: item.title,
+      description: item.description,
+      imageUrl: item.image?.url
+        ? `${import.meta.env.VITE_STRAPI_URL}${item.image.url}`
+        : "/images/no-image.png",
+      url: item.url,
+      category: item.category,
+      featured: item.featured,
+      imageTmp: item.image?.url,
+    }));
+
+    return { projects };
   } catch (error) {
     console.error("Error fetching projects:", error);
     return { projects: [] };
@@ -38,6 +51,8 @@ const ProjectsPage = ({ loaderData }: Route.ComponentProps) => {
   const projectsPerPage = 10;
 
   const { projects } = loaderData as { projects: Project[] };
+
+  console.log("Loaded projects:", projects);
 
   const categories = ["All", ...Array.from(new Set(projects.map((project) => project.category)))];
   const filteredProjects =
