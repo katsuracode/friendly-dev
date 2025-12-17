@@ -9,10 +9,7 @@ export const loader = async ({
 }: Route.LoaderArgs): Promise<{ project: Project }> => {
   const { id } = params;
 
-  const apiUrl =
-    process.env.NODE_ENV === "development"
-      ? `${import.meta.env.VITE_API_URL}/projects?filters[documentId][$eq]=${id}&populate=*`
-      : `https://friendly-dev-one.vercel.app/projects/${id}`;
+  const apiUrl = `${import.meta.env.VITE_API_URL}/projects?filters[documentId][$eq]=${id}&populate=*`;
 
   const res = await fetch(apiUrl);
   if (!res.ok) throw new Error("Failed to fetch data from the server.");

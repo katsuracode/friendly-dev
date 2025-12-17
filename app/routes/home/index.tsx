@@ -14,15 +14,9 @@ export const meta = ({}: Route.MetaArgs) => {
 export const loader = async ({
   request,
 }: Route.LoaderArgs): Promise<{ projects: Project[]; posts: Post[] }> => {
-  const apiUrlForProjects =
-    process.env.NODE_ENV === "development"
-      ? `${import.meta.env.VITE_API_URL}/projects?filters[featured][$eq]=true&populate=*`
-      : "https://friendly-dev-one.vercel.app/projects";
+  const apiUrlForProjects = `${import.meta.env.VITE_API_URL}/projects?filters[featured][$eq]=true&populate=*`;
 
-  const apiUrlForPosts =
-    process.env.NODE_ENV === "development"
-      ? `${import.meta.env.VITE_API_URL}/posts?sort[0]=date:desc&populate=*`
-      : "https://friendly-dev-one.vercel.app/projects";
+  const apiUrlForPosts = `${import.meta.env.VITE_API_URL}/posts?sort[0]=date:desc&populate=*`;
 
   const [responseProjects, responsePosts] = await Promise.all([
     fetch(apiUrlForProjects),

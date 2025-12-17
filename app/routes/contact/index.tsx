@@ -1,4 +1,3 @@
-import { Form } from "react-router";
 import type { Route } from "./+types";
 
 // export const action = async ({ request }: Route.ActionArgs) => {
@@ -97,7 +96,7 @@ const ContactPage = ({ actionData }: Route.ComponentProps) => {
 
         <button
           type="submit"
-          className="w-full text-white py-2 rouded-lg bg-blue-600 hover:bg-blue-700 transition-colors"
+          className="w-full text-white py-2 rounded-lg bg-blue-600 hover:bg-blue-700 transition-colors"
         >
           Send Message 🖱️
         </button>
