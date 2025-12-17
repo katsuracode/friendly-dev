@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import Pagination from "~/components/Pagination";
 import ProjectCard from "~/components/ProjectCard";
-import type { Project } from "../../type";
+import type { Project, StrapiProject, StrapiResponse } from "../../type";
 import type { Route } from "./+types";
 
 export const meta = ({}: Route.MetaArgs) => {
@@ -13,36 +13,31 @@ export const meta = ({}: Route.MetaArgs) => {
 };
 
 export const loader = async ({ request }: Route.LoaderArgs): Promise<{ projects: Project[] }> => {
-  try {
-    const apiUrl =
-      process.env.NODE_ENV === "development"
-        ? `${import.meta.env.VITE_API_URL}/projects?populate=*`
-        : "https://friendly-dev-one.vercel.app/projects";
+  const apiUrl =
+    process.env.NODE_ENV === "development"
+      ? `${import.meta.env.VITE_API_URL}/projects?populate=*`
+      : "https://friendly-dev-one.vercel.app/projects";
 
-    const res = await fetch(apiUrl);
-    if (!res.ok) throw new Error("Failed to fetch data from the server.");
+  const res = await fetch(apiUrl);
+  if (!res.ok) throw new Error("Failed to fetch data from the server.");
 
-    const json = await res.json();
+  const json: StrapiResponse<StrapiProject> = await res.json();
 
-    const projects = json.data.map((item: any) => ({
-      id: item.id,
-      documentId: item.documentId,
-      title: item.title,
-      description: item.description,
-      imageUrl: item.image?.url
-        ? `${import.meta.env.VITE_STRAPI_URL}${item.image.url}`
-        : "/images/no-image.png",
-      url: item.url,
-      category: item.category,
-      featured: item.featured,
-      imageTmp: item.image?.url,
-    }));
+  const projects = json.data.map((item) => ({
+    id: item.id,
+    documentId: item.documentId,
+    title: item.title,
+    description: item.description,
+    image: item.image?.url
+      ? `${import.meta.env.VITE_STRAPI_URL}${item.image.url}`
+      : "/images/no-image.png",
+    date: item.date,
+    url: item.url,
+    category: item.category,
+    featured: item.featured,
+  }));
 
-    return { projects };
-  } catch (error) {
-    console.error("Error fetching projects:", error);
-    return { projects: [] };
-  }
+  return { projects };
 };
 
 const ProjectsPage = ({ loaderData }: Route.ComponentProps) => {

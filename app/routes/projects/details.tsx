@@ -1,35 +1,46 @@
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router";
-import type { Project } from "~/type";
+import type { Project, StrapiProject, StrapiResponse } from "~/type";
 import type { Route } from "./+types";
 
-export const loader = async ({ request, params }: Route.LoaderArgs): Promise<Project> => {
-  try {
-    const apiUrl =
-      process.env.NODE_ENV === "development"
-        ? `${import.meta.env.VITE_API_URL}/projects/${params.id}`
-        : `https://friendly-dev-one.vercel.app/projects/${params.id}`;
+export const loader = async ({
+  request,
+  params,
+}: Route.LoaderArgs): Promise<{ project: Project }> => {
+  const { id } = params;
 
-    const res = await fetch(apiUrl);
-    if (!res.ok) throw new Error("Failed to fetch data from the server.");
+  const apiUrl =
+    process.env.NODE_ENV === "development"
+      ? `${import.meta.env.VITE_API_URL}/projects?filters[documentId][$eq]=${id}&populate=*`
+      : `https://friendly-dev-one.vercel.app/projects/${id}`;
 
-    const project = (await res.json()) as Project;
-    console.log(project);
+  const res = await fetch(apiUrl);
+  if (!res.ok) throw new Error("Failed to fetch data from the server.");
 
-    return project;
-  } catch (error) {
-    console.error("Error fetching projects:", error);
-    return {} as Project;
-  }
-};
+  const json: StrapiResponse<StrapiProject> = await res.json();
+  const item = json.data[0];
 
-export const HydrateFallback = () => {
-  return <div>Loading project details...</div>;
+  console.log(item);
+
+  const project = {
+    id: item.id,
+    documentId: item.documentId,
+    title: item.title,
+    description: item.description,
+    image: item.image?.url
+      ? `${import.meta.env.VITE_STRAPI_URL}${item.image.url}`
+      : "/images/no-image.png",
+    date: item.date,
+    url: item.url,
+    category: item.category,
+    featured: item.featured,
+  };
+
+  return { project };
 };
 
 const ProjectDetailPage = ({ loaderData }: Route.ComponentProps) => {
-  const project = loaderData;
-  console.log(project);
+  const { project } = loaderData;
 
   return (
     <>
